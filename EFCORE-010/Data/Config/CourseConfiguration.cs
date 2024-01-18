@@ -9,15 +9,15 @@ namespace EFCORE_10.Data.Config
         public void Configure(EntityTypeBuilder<Course> builder)
         {
             builder.HasKey(x => x.Id); // set primary key;
+            //
             builder.Property(x => x.Id).ValueGeneratedNever();
-
-            //builder.Property(x => x.CourseName).HasMaxLength(255);
+            //
             builder.Property(x => x.CourseName).HasColumnType("VARCHAR").HasMaxLength(255).IsRequired();
-
+            //
             builder.ToTable("Courses");
-
+            //
             builder.Property(x => x.Price).HasPrecision(15, 2);
-
+            //
             builder.HasData(LoadCourses());
         }
 

@@ -9,9 +9,12 @@ namespace EFCORE_10.Data.Config
         public void Configure(EntityTypeBuilder<Instructor> builder)
         {
             builder.HasKey(x => x.Id);
+            //
             builder.Property(x => x.Id).ValueGeneratedNever();
             //
             builder.Property(x => x.Name).HasColumnType("VARCHAR").HasMaxLength(255).IsRequired();
+            //
+            builder.HasOne(x => x.Office).WithOne(x => x.Instructor).HasForeignKey<Instructor>(x => x.OfficeId).IsRequired(false);
             //
             builder.ToTable("Instructors");
             //
@@ -23,12 +26,13 @@ namespace EFCORE_10.Data.Config
         {
             return new List<Instructor>
             {
-                new Instructor {Id = 1, Name = "Omar Ghanayem"},
-                new Instructor {Id = 2, Name = "Amr Shadid"},
-                new Instructor {Id = 3, Name = "Abood Mukhemar"},
-                new Instructor {Id = 4, Name = "Abood Saleh"},
-                new Instructor {Id = 5, Name = "Hamood Khamalan"},
+                new Instructor {Id = 1, Name = "Omar Ghanayem" , OfficeId=1},
+                new Instructor {Id = 2, Name = "Amr Shadid", OfficeId=2},
+                new Instructor {Id = 3, Name = "Abood Mukhemar",OfficeId=3},
+                new Instructor {Id = 4, Name = "Abood Saleh", OfficeId = 4},
+                new Instructor {Id = 5, Name = "Hamood Khamalan", OfficeId = 5},
             };
         }
     }
+
 }

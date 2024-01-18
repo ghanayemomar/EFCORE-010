@@ -1,9 +1,13 @@
-﻿namespace EFCORE_10.Entites
+﻿
+using EFCORE_010.Entites;
+
+namespace EFCORE_10.Entites
 {
     public class Course
     {
         public int Id { get; set; }
         public string? CourseName { get; set; }
         public decimal Price { get; set; }
+        public ICollection<Section> Sections { get; set; } = new List<Section>();
     }
 }
