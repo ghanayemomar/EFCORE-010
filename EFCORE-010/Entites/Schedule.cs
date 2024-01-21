@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EFCORE_010.Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace EFCORE_010.Entites
     public class Schedule
     {
         public int Id { get; set; }
-        public string? Title { get; set; }
+        public ScheduleEnum Title { get; set; }
 
         public bool SUN { get; set; }
         public bool MON { get; set; }
@@ -19,7 +20,6 @@ namespace EFCORE_010.Entites
         public bool FRI { get; set; }
         public bool SAT { get; set; }
         public ICollection<Section> Sections { get; set; } = new List<Section>();
-        public ICollection<SectionSchedule> SectionSchedule { get; set; } = new List<SectionSchedule>();
 
     }
 }

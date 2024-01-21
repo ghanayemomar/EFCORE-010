@@ -13,8 +13,19 @@ namespace EFCORE_010.Entites
         public int? InstructorId { get; set; }
         public Instructor? Instructor { get; set; }
 
+        public int ScheduleId { get; set; }
+        public Schedule Schedule { get; set; }
+        public TimeSlot TimeSlot { get; set; }
         public ICollection<Student> Students { get; set; } = new List<Student>();
-        public ICollection<Schedule> Schedules { get; set; } = new List<Schedule>();
-        public ICollection<SectionSchedule> SectionSchedules { get; set; } = new List<SectionSchedule>();
+    }
+
+    public class TimeSlot
+    {
+        public TimeSpan StarTime { get; set; }
+        public TimeSpan EndTime { get; set; }
+        public override string ToString()
+        {
+            return $"{StarTime.ToString("hh\\:mm")} - {EndTime.ToString("hh\\:mm")}";
+        }
     }
 }

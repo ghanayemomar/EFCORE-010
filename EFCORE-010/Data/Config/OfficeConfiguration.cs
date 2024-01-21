@@ -18,20 +18,7 @@ namespace EFCORE_10.Data.Config
             //
             builder.ToTable("Offices");
             //
-            builder.HasData(LoadOffices());
             //
-        }
-
-        private static List<Office> LoadOffices()
-        {
-            return new List<Office>
-            {
-                new Office {Id = 1, OfficeName = "Off-05", OfficeLocation = "building A" },
-                new Office {Id = 2, OfficeName = "Off-06", OfficeLocation = "building B" },
-                new Office {Id = 3, OfficeName = "Off-07", OfficeLocation = "Adminstration"},
-                new Office {Id = 4, OfficeName = "Off-08", OfficeLocation = "IT Department"},
-                new Office {Id = 5, OfficeName = "Off-09", OfficeLocation = "IT Department"},
-            };
         }
     }
 }

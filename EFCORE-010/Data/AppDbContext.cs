@@ -13,7 +13,6 @@ namespace EFCORE_10.Data
         public DbSet<Section> Sections { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Student> Students { get; set; }
-        public DbSet<SectionSchedule> SectionSchedules { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
