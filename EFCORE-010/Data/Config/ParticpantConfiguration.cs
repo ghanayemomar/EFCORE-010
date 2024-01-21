@@ -19,6 +19,8 @@ namespace EFCORE_10.Data.Config
             //
             builder.Property("ParricipantType").HasColumnType("VARCHAR").HasMaxLength(4);
             //
+            builder.UseTptMappingStrategy();
+            //
             builder.ToTable(nameof(Particpant));
             //
         }

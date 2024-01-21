@@ -19,6 +19,14 @@ var participant2 = new Coporate
     Company = "Migration",
     JobTitle = "Developer"
 };
+var participant3 = new Coporate
+{
+    Id = 2,
+    FName = "Reem",
+    LName = "Ali",
+    Company = "Migration",
+    JobTitle = "QA"
+};
 using (var context = new AppDbContext())
 {
     context.Particpants.Add(participant1);
