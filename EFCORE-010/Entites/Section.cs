@@ -16,7 +16,7 @@ namespace EFCORE_010.Entites
         public int ScheduleId { get; set; }
         public Schedule Schedule { get; set; }
         public TimeSlot TimeSlot { get; set; }
-        public ICollection<Student> Students { get; set; } = new List<Student>();
+        public ICollection<Particpant> Particpant { get; set; } = new List<Particpant>();
     }
 
     public class TimeSlot

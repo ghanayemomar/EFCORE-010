@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCORE010.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240121112626_InitalMigration")]
-    partial class InitalMigration
+    [Migration("20240121132345_TT02")]
+    partial class TT02
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,11 +33,43 @@ namespace EFCORE010.Migrations
                     b.Property<int>("StudentId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ParticpantsId")
+                        .HasColumnType("int");
+
                     b.HasKey("SectionId", "StudentId");
 
-                    b.HasIndex("StudentId");
+                    b.HasIndex("ParticpantsId");
 
                     b.ToTable("Enrollments", (string)null);
+                });
+
+            modelBuilder.Entity("EFCORE_010.Entites.Particpant", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("VARCHAR");
+
+                    b.Property<string>("LName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR");
+
+                    b.Property<string>("ParricipantType")
+                        .IsRequired()
+                        .HasMaxLength(4)
+                        .HasColumnType("VARCHAR");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Particpant", (string)null);
+
+                    b.HasDiscriminator<string>("ParricipantType").HasValue("Particpant");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("EFCORE_010.Entites.Schedule", b =>
@@ -105,26 +137,6 @@ namespace EFCORE010.Migrations
                     b.ToTable("Sections", (string)null);
                 });
 
-            modelBuilder.Entity("EFCORE_010.Entites.Student", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("VARCHAR");
-
-                    b.Property<string>("LName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("VARCHAR");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Students", (string)null);
-                });
-
             modelBuilder.Entity("EFCORE_10.Entites.Course", b =>
                 {
                     b.Property<int>("Id")
@@ -186,23 +198,55 @@ namespace EFCORE010.Migrations
                     b.ToTable("Offices", (string)null);
                 });
 
+            modelBuilder.Entity("EFCORE_010.Entites.Coporate", b =>
+                {
+                    b.HasBaseType("EFCORE_010.Entites.Particpant");
+
+                    b.Property<string>("Company")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("JobTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("COPR");
+                });
+
+            modelBuilder.Entity("EFCORE_010.Entites.Individaul", b =>
+                {
+                    b.HasBaseType("EFCORE_010.Entites.Particpant");
+
+                    b.Property<string>("University")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("YearOfGraduation")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isIntern")
+                        .HasColumnType("bit");
+
+                    b.HasDiscriminator().HasValue("INDV");
+                });
+
             modelBuilder.Entity("EFCORE_010.Entites.Enrollment", b =>
                 {
+                    b.HasOne("EFCORE_010.Entites.Particpant", "Particpants")
+                        .WithMany()
+                        .HasForeignKey("ParticpantsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("EFCORE_010.Entites.Section", "Section")
                         .WithMany()
                         .HasForeignKey("SectionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EFCORE_010.Entites.Student", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Particpants");
 
                     b.Navigation("Section");
-
-                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("EFCORE_010.Entites.Section", b =>

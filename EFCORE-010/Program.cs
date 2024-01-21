@@ -1,27 +1,43 @@
-﻿using EFCORE_10.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using EFCORE_010.Entites;
+using EFCORE_10.Data;
+
+var participant1 = new Individaul
+{
+    Id = 1,
+    FName = "Ahmad",
+    LName = "Ali",
+    University = "AAUP",
+    YearOfGraduation = 2024,
+    isIntern = false
+};
+
+var participant2 = new Coporate
+{
+    Id = 2,
+    FName = "Ahmad",
+    LName = "Ali",
+    Company = "Migration",
+    JobTitle = "Developer"
+};
+using (var context = new AppDbContext())
+{
+    context.Particpants.Add(participant1);
+    context.Particpants.Add(participant2);
+    context.SaveChanges();
+
+}
 
 using (var context = new AppDbContext())
 {
-
-    var sections = context.Sections
-        .Include(x => x.Course)
-        .Include(x => x.Instructor)
-        .Include(x => x.Schedule);
-
-    Console.WriteLine("| Id |  Course      | Section | Instructor           | Schedule       | Time Slot     | SUN | MON | TUE | WED | THU | FRI | SAT |");
-    Console.WriteLine("|----|--------------|---------|----------------------|----------------|---------------|-----|-----|-----|-----|-----|-----|-----|");
-
-    foreach (var section in sections)
-    { 
-        string sunday = section.Schedule.SUN ? " x" : "";
-        string monday = section.Schedule.MON ? " x" : "";
-        string tuesday = section.Schedule.TUE ? " x" : "";
-        string wednesday = section.Schedule.WED ? " x" : "";
-        string thursday = section.Schedule.THU ? " x" : "";
-        string friday = section.Schedule.FRI ? " x" : "";
-        string saturday = section.Schedule.SAT ? " x" : "";
-
-        Console.WriteLine($"| {section.Id.ToString().PadLeft(2, '0')} | {section.Course.CourseName,-12} | {section.SectionName,-7} | {(section.Instructor?.Name + " " + section.Instructor?.Name),-20} | {section.Schedule.Title,-14} {section.TimeSlot,-9}");
+    Console.WriteLine("Coporate Part");
+    Console.WriteLine("Individual Part");
+    foreach (var particpant in context.Set<Particpant>().OfType<Individaul>())
+    {
+        Console.WriteLine(particpant);
     }
+    foreach (var coporate in context.Set<Particpant>().OfType<Coporate>())
+    {
+        Console.WriteLine(coporate);
+    }
+
 }

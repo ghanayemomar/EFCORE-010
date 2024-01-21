@@ -25,7 +25,7 @@ namespace EFCORE_10.Data.Config
             //
             builder.HasOne(c => c.Schedule).WithMany(x => x.Sections).HasForeignKey(x => x.ScheduleId).IsRequired();
             //
-            builder.HasMany(c => c.Students).WithMany(x => x.Sections).UsingEntity<Enrollment>();
+            builder.HasMany(c => c.Particpant).WithMany(x => x.Sections).UsingEntity<Enrollment>();
             //
             builder.ToTable("Sections");
             //

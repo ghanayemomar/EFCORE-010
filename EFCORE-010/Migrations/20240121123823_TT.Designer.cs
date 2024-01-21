@@ -4,6 +4,7 @@ using EFCORE_10.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCORE010.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240121123823_TT")]
+    partial class TT
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,6 +48,10 @@ namespace EFCORE010.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FName")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -55,16 +62,11 @@ namespace EFCORE010.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("VARCHAR");
 
-                    b.Property<string>("ParricipantType")
-                        .IsRequired()
-                        .HasMaxLength(4)
-                        .HasColumnType("VARCHAR");
-
                     b.HasKey("Id");
 
                     b.ToTable("Particpant", (string)null);
 
-                    b.HasDiscriminator<string>("ParricipantType").HasValue("Particpant");
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Particpant");
 
                     b.UseTphMappingStrategy();
                 });
@@ -207,7 +209,7 @@ namespace EFCORE010.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("COPR");
+                    b.HasDiscriminator().HasValue("Coporate");
                 });
 
             modelBuilder.Entity("EFCORE_010.Entites.Individaul", b =>
@@ -224,7 +226,7 @@ namespace EFCORE010.Migrations
                     b.Property<bool>("isIntern")
                         .HasColumnType("bit");
 
-                    b.HasDiscriminator().HasValue("INDV");
+                    b.HasDiscriminator().HasValue("Individaul");
                 });
 
             modelBuilder.Entity("EFCORE_010.Entites.Enrollment", b =>
