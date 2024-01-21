@@ -14,6 +14,9 @@ namespace EFCORE_10.Data
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Particpant> Particpants { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }
+        public DbSet<MultipleChoiceQuiz> MultipleChoiceQuiz { get; set; }
+        public DbSet<TrueAndFalseQuiz> TrueAndFalseQuiz { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
